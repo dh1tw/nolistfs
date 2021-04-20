@@ -11,6 +11,12 @@ Please check the example folder for a basic example which:
 - shows how to use NoListFileSystem
 - runs an HTTP server to demonstrate the behaviour
 
+```bash
+
+$ go run example/main.go
+Listening on 127.0.0.1:7474
+
+```
 ## Credits
 
 - Alex Edwards on [How to disable http.FileServer Directory Listings](https://www.alexedwards.net/blog/disable-http-fileserver-directory-listings#using-middleware)
