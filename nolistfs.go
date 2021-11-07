@@ -7,7 +7,7 @@ package nolistfs
 import (
 	"net/http"
 	"os"
-	"path/filepath"
+	"path"
 )
 
 type NoListFile struct {
@@ -39,8 +39,8 @@ type NoListFileSystem struct {
 
 // Open implements Open method required by http.FileSystem. This
 // function returns a 404 error when a trailing "/" is called.
-func (nfs NoListFileSystem) Open(path string) (http.File, error) {
-	f, err := nfs.base.Open(path)
+func (nfs NoListFileSystem) Open(pathToOpen string) (http.File, error) {
+	f, err := nfs.base.Open(pathToOpen)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (nfs NoListFileSystem) Open(path string) (http.File, error) {
 		return nil, err
 	}
 	if s.IsDir() {
-		index := filepath.Join(path, "index.html")
+		index := path.Join(pathToOpen, "/index.html")
 		if _, err := nfs.Open(index); err != nil {
 			closeErr := f.Close()
 			if closeErr != nil {
